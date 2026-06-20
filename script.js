@@ -69,15 +69,26 @@ if ('IntersectionObserver' in window) {
 }
 
 // 作品資料
-const projectData = {
-  iot: { title: '智慧物聯共享站', type: 'IoT / System / Web', desc: '以愛心站管理痛點為背景，結合人臉辨識、RFID、雲端資料庫與 Webduino 伺服馬達。', points: ['雙重身分驗證降低濫用', '選物後控制門鎖開啟', '未來可擴充物資期限與補貨通知'] },
-  game: { title: '太空生存戰', type: 'Game', desc: '自學遊戲開發並完成可操作遊戲，訓練獨立思考與問題排除。', points: ['自學遊戲邏輯', '透過測試修正錯誤', '整理資料並完成作品'] },
-  portfolio: { title: '個人網站', type: 'Web', desc: '從 HTML、CSS 到 JavaScript 自學完成自介網站與作品集。', points: ['RWD 排版', '導覽與互動', '個人品牌呈現'] },
-  expiry: { title: '有效期限管理系統', type: 'System / Web', desc: '以條碼掃描、資料庫與紅黃綠燈提醒管理食材期限。', points: ['資料庫保存期限', '快過期提醒', '推薦使用邏輯'] },
-  vote: { title: '活動投票系統', type: 'Web / PHP', desc: '支援活動新增、投票、圖表結果與後台管理。', points: ['PHP 表單處理', 'AJAX 互動', 'Chart.js 結果圖'] },
-  shop: { title: '服飾購物網站', type: 'Web / UI', desc: '以服裝商品為主題規劃前台展示與後台管理。', points: ['商品卡片', '購物流程', 'RWD 版面'] },
-  repair: { title: '小家電維修平台企劃', type: 'System Planning', desc: '以 AI 對話輔助維修判斷、零件建議與店家轉介。', points: ['AI 診斷流程', '成本估算', '論壇與店家轉介'] }
-};
+let projectData = {};
+fetch('project-data.json')
+  .then(response => {
+    if (!response.ok) throw new Error('Network response was not ok');
+    return response.json();
+  })
+  .then(data => {
+    projectData = Object.fromEntries(Object.entries(data).map(([k, v]) => {
+      const points = v.points || (v.detail ? v.detail.split(/。|\n/).map(s => s.trim()).filter(Boolean) : []);
+      return [k, {
+        title: v.title || '',
+        type: v.type || '',
+        desc: v.desc || '',
+        points
+      }];
+    }));
+  })
+  .catch(err => {
+    console.error('載入 project-data.json 失敗：', err);
+  });
 
 // 作品篩選與搜尋
 const filterBtns = document.querySelectorAll('.filter-btn[data-filter]');
