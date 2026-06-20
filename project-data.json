@@ -1,0 +1,100 @@
+{
+  "iot": {
+    "id": "iot",
+    "title": "智慧物聯共享站",
+    "type": "IoT / System / Web",
+    "cat": "iot system web",
+    "img": "iot-station.svg",
+    "tags": [
+      "RFID",
+      "人臉辨識",
+      "Webduino",
+      "C#"
+    ],
+    "desc": "結合人臉辨識、RFID、雲端資料庫與 Webduino，處理愛心站管理與物資濫用問題。",
+    "detail": "此作品以愛心站的物資濫拿、浪費、人力不足為背景，設計身分驗證與門鎖控制流程，是最能代表我系統整合能力的專題。"
+  },
+  "game": {
+    "id": "game",
+    "title": "太空生存戰",
+    "type": "Game",
+    "cat": "game",
+    "img": "game-space.svg",
+    "tags": [
+      "Game Logic",
+      "Self Learning"
+    ],
+    "desc": "自學遊戲開發，透過網路資料、測試與統整完成遊戲功能。",
+    "detail": "在無法即時問老師的狀況下，我靠資料搜尋與反覆測試完成遊戲，訓練獨立思考與錯誤排除。"
+  },
+  "portfolio": {
+    "id": "portfolio",
+    "title": "個人網站",
+    "type": "Web",
+    "cat": "web",
+    "img": "website-mock.svg",
+    "tags": [
+      "HTML",
+      "CSS",
+      "JS"
+    ],
+    "desc": "從 HTML、CSS 到 JavaScript 自學完成自介網站，建立前端基礎。",
+    "detail": "此作品是前端學習的起點，從版面、排版、導覽到互動功能逐步練習。"
+  },
+  "expiry": {
+    "id": "expiry",
+    "title": "有效期限管理系統",
+    "type": "System / Web",
+    "cat": "system web",
+    "img": "system-flow.svg",
+    "tags": [
+      "Database",
+      "PHP",
+      "Logic"
+    ],
+    "desc": "以條碼掃描、資料庫、紅黃綠燈提醒與推薦邏輯管理食材期限。",
+    "detail": "針對家庭食材過期浪費問題，規劃前端、後端、資料庫與推薦邏輯，是系統分析能力的展示。"
+  },
+  "vote": {
+    "id": "vote",
+    "title": "活動投票系統",
+    "type": "Web / PHP",
+    "cat": "web system",
+    "img": "website-mock.svg",
+    "tags": [
+      "PHP",
+      "AJAX",
+      "Chart.js"
+    ],
+    "desc": "支援活動新增、項目投票、結果圖表與後台管理。",
+    "detail": "練習表單、資料儲存、非同步更新與圖表呈現，把互動網站從靜態提升到資料導向。"
+  },
+  "shop": {
+    "id": "shop",
+    "title": "服飾購物網站",
+    "type": "Web / UI",
+    "cat": "web",
+    "img": "certificates.svg",
+    "tags": [
+      "UI",
+      "RWD",
+      "Bootstrap"
+    ],
+    "desc": "以服裝商品為主題規劃前台商品展示、購物流程與後台管理。",
+    "detail": "以常見電商流程作為練習，包含商品卡片、分類、購物按鈕與 RWD 版面。"
+  },
+  "repair": {
+    "id": "repair",
+    "title": "小家電維修平台企劃",
+    "type": "System Planning",
+    "cat": "system",
+    "img": "internship-repair.svg",
+    "tags": [
+      "AI Flow",
+      "Forum",
+      "Cost"
+    ],
+    "desc": "以 AI 對話協助故障判斷、維修步驟、零件建議與店家轉介。",
+    "detail": "從使用者困境出發，把維修資訊零散、零件難找、風險判斷困難等問題整理成平台流程。"
+  }
+}

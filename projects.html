@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="何丞舜的作品集，包含網頁、IoT、系統企劃與遊戲作品。">
+  <title>作品集｜何丞舜 Portfolio</title>
+  <link rel="icon" type="image/svg+xml" href="images/profile.svg">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="" data-current-page="projects.html">
+  <a class="skip-link" href="#mainContent">跳到主要內容</a>
+  <header class="site-header fixed-top" id="top">
+    <nav class="navbar navbar-expand-lg container-xl py-3" aria-label="主選單">
+      <a class="navbar-brand d-flex align-items-center gap-2" href="index.html" aria-label="回到首頁">
+        <span class="brand-mark">舜</span>
+        <span class="brand-text">何丞舜 Portfolio</span>
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav" aria-controls="mainNav" aria-expanded="false" aria-label="切換導覽列">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="mainNav">
+        <ul class="navbar-nav ms-auto align-items-lg-center gap-lg-1">
+          <li class="nav-item"><a class="nav-link" href="index.html" data-page="index.html">首頁</a></li>
+          <li class="nav-item"><a class="nav-link" href="about.html" data-page="about.html">關於我</a></li>
+          <li class="nav-item"><a class="nav-link" href="projects.html" data-page="projects.html">作品</a></li>
+          <li class="nav-item"><a class="nav-link" href="project-iot.html" data-page="project-iot.html">代表專題</a></li>
+          <li class="nav-item"><a class="nav-link" href="experience.html" data-page="experience.html">經歷</a></li>
+          <li class="nav-item"><a class="nav-link" href="articles.html" data-page="articles.html">文章</a></li>
+          <li class="nav-item"><a class="nav-link" href="contact.html" data-page="contact.html">聯絡</a></li>
+          <li class="nav-item ms-lg-2"><button class="theme-toggle" id="themeToggle" type="button" aria-label="切換深色與亮色模式">☾</button></li>
+        </ul>
+      </div>
+    </nav>
+  </header>
+  <main id="mainContent">
+
+    <section class="sub-hero">
+      <div class="container-xl">
+        <p class="eyebrow">Projects</p>
+        <h1>作品集</h1>
+        <p>這頁有作品分類、關鍵字搜尋、收藏功能與作品細節彈窗。功能多一點，網站就比較不像期末前晚從模板農場拔出來的植物。</p>
+      </div>
+    </section>
+    <section class="section-pad">
+      <div class="container-xl">
+        <div class="tool-panel reveal">
+          <div class="search-box">
+            <label for="projectSearch">搜尋作品</label>
+            <input id="projectSearch" type="search" placeholder="輸入 IoT、PHP、遊戲、RFID...">
+          </div>
+          <div class="filter-bar" aria-label="作品分類篩選">
+            <button class="filter-btn active" data-filter="all" type="button">全部</button>
+            <button class="filter-btn" data-filter="web" type="button">Web</button>
+            <button class="filter-btn" data-filter="iot" type="button">IoT</button>
+            <button class="filter-btn" data-filter="system" type="button">System</button>
+            <button class="filter-btn" data-filter="game" type="button">Game</button>
+          </div>
+          <p class="result-count mb-0" id="projectCount" aria-live="polite"></p>
+        </div>
+        <div class="favorite-note reveal" id="favoriteNote">已收藏作品會存在這台瀏覽器的 localStorage。</div>
+        <div class="row g-4 project-list mt-1">
+<div class="col-md-6 col-xl-4 project-item" data-category="iot system web" data-title="智慧物聯共享站 IoT / System / Web RFID 人臉辨識 Webduino C#" data-project-id="iot">
+            <article class="project-card h-100">
+              <button class="favorite-btn" type="button" data-favorite="iot" aria-label="收藏 智慧物聯共享站">☆</button>
+              <img src="images/iot-station.jpg" alt="智慧物聯共享站示意圖">
+              <div class="project-body">
+                <span class="project-type">IoT / System / Web</span>
+                <h3>智慧物聯共享站</h3>
+                <p>結合人臉辨識、RFID、雲端資料庫與 Webduino，處理愛心站管理與物資濫用問題。</p>
+                <div class="mini-tags"><span>RFID</span><span>人臉辨識</span><span>Webduino</span><span>C#</span></div>
+                <button class="text-btn mt-3" type="button" data-open-project="iot">查看細節</button>
+              </div>
+            </article>
+          </div>
+<div class="col-md-6 col-xl-4 project-item" data-category="game" data-title="太空生存戰 Game Game Logic Self Learning" data-project-id="game">
+            <article class="project-card h-100">
+              <button class="favorite-btn" type="button" data-favorite="game" aria-label="收藏 太空生存戰">☆</button>
+              <img src="images/game-space.jpg" alt="太空生存戰示意圖">
+              <div class="project-body">
+                <span class="project-type">Game</span>
+                <h3>太空生存戰</h3>
+                <p>自學遊戲開發，透過網路資料、測試與統整完成遊戲功能。</p>
+                <div class="mini-tags"><span>Game Logic</span><span>Self Learning</span></div>
+                <button class="text-btn mt-3" type="button" data-open-project="game">查看細節</button>
+              </div>
+            </article>
+          </div>
+<div class="col-md-6 col-xl-4 project-item" data-category="web" data-title="個人網站 Web HTML CSS JS" data-project-id="portfolio">
+            <article class="project-card h-100">
+              <button class="favorite-btn" type="button" data-favorite="portfolio" aria-label="收藏 個人網站">☆</button>
+              <img src="images/website-mock.jpg" alt="個人網站示意圖">
+              <div class="project-body">
+                <span class="project-type">Web</span>
+                <h3>個人網站</h3>
+                <p>從 HTML、CSS 到 JavaScript 自學完成自介網站，建立前端基礎。</p>
+                <div class="mini-tags"><span>HTML</span><span>CSS</span><span>JS</span></div>
+                <button class="text-btn mt-3" type="button" data-open-project="portfolio">查看細節</button>
+              </div>
+            </article>
+          </div>
+<div class="col-md-6 col-xl-4 project-item" data-category="system web" data-title="有效期限管理系統 System / Web Database PHP Logic" data-project-id="expiry">
+            <article class="project-card h-100">
+              <button class="favorite-btn" type="button" data-favorite="expiry" aria-label="收藏 有效期限管理系統">☆</button>
+              <img src="images/system-flow.jpg" alt="有效期限管理系統示意圖">
+              <div class="project-body">
+                <span class="project-type">System / Web</span>
+                <h3>有效期限管理系統</h3>
+                <p>以條碼掃描、資料庫、紅黃綠燈提醒與推薦邏輯管理食材期限。</p>
+                <div class="mini-tags"><span>Database</span><span>PHP</span><span>Logic</span></div>
+                <button class="text-btn mt-3" type="button" data-open-project="expiry">查看細節</button>
+              </div>
+            </article>
+          </div>
+<div class="col-md-6 col-xl-4 project-item" data-category="web system" data-title="活動投票系統 Web / PHP PHP AJAX Chart.js" data-project-id="vote">
+            <article class="project-card h-100">
+              <button class="favorite-btn" type="button" data-favorite="vote" aria-label="收藏 活動投票系統">☆</button>
+              <img src="images/website-mock.jpg" alt="活動投票系統">
+              <div class="project-body">
+                <span class="project-type">Web / PHP</span>
+                <h3>活動投票系統</h3>
+                <p>支援活動新增、項目投票、結果圖表與後台管理。</p>
+                <div class="mini-tags"><span>PHP</span><span>AJAX</span><span>Chart.js</span></div>
+                <button class="text-btn mt-3" type="button" data-open-project="vote">查看細節</button>
+              </div>
+            </article>
+          </div>
+<div class="col-md-6 col-xl-4 project-item" data-category="web" data-title="服飾購物網站 Web / UI UI RWD Bootstrap" data-project-id="shop">
+            <article class="project-card h-100">
+              <button class="favorite-btn" type="button" data-favorite="shop" aria-label="收藏 服飾購物網站">☆</button>
+              <img src="images/certificates.jpg" alt="服飾購物網站">
+              <div class="project-body">
+                <span class="project-type">Web / UI</span>
+                <h3>服飾購物網站</h3>
+                <p>以服裝商品為主題規劃前台商品展示、購物流程與後台管理。</p>
+                <div class="mini-tags"><span>UI</span><span>RWD</span><span>Bootstrap</span></div>
+                <button class="text-btn mt-3" type="button" data-open-project="shop">查看細節</button>
+              </div>
+            </article>
+          </div>
+<div class="col-md-6 col-xl-4 project-item" data-category="system" data-title="小家電維修平台企劃 System Planning AI Flow Forum Cost" data-project-id="repair">
+            <article class="project-card h-100">
+              <button class="favorite-btn" type="button" data-favorite="repair" aria-label="收藏 小家電維修平台企劃">☆</button>
+              <img src="images/internship-repair.jpg" alt="小家電維修平台企劃示意圖">
+              <div class="project-body">
+                <span class="project-type">System Planning</span>
+                <h3>小家電維修平台企劃</h3>
+                <p>以 AI 對話協助故障判斷、維修步驟、零件建議與店家轉介。</p>
+                <div class="mini-tags"><span>AI Flow</span><span>Forum</span><span>Cost</span></div>
+                <button class="text-btn mt-3" type="button" data-open-project="repair">查看細節</button>
+              </div>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+    <div class="modal fade" id="projectModal" tabindex="-1" aria-labelledby="projectModalTitle" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content project-modal">
+          <div class="modal-header">
+            <h2 class="modal-title h4" id="projectModalTitle">作品細節</h2>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="關閉"></button>
+          </div>
+          <div class="modal-body" id="projectModalBody"></div>
+        </div>
+      </div>
+    </div>
+
+  </main>
+  <footer class="site-footer">
+    <div class="container-xl d-flex flex-column flex-md-row justify-content-between gap-3">
+      <p class="mb-0">© 2026 何丞舜. 個人期末專案網站。</p>
+      <p class="mb-0">HTML / CSS / Bootstrap / JavaScript</p>
+    </div>
+  </footer>
+  <button class="back-to-top" id="backToTop" type="button" aria-label="回到頁首">↑</button>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
