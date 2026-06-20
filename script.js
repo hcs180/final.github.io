@@ -68,7 +68,7 @@ if ('IntersectionObserver' in window) {
   statEls.forEach(el => countObserver.observe(el));
 }
 
-// 作品資料
+// 作品資料（從 project-data.json 載入）
 let projectData = {};
 fetch('project-data.json')
   .then(response => {
@@ -79,12 +79,22 @@ fetch('project-data.json')
     projectData = Object.fromEntries(Object.entries(data).map(([k, v]) => {
       const points = v.points || (v.detail ? v.detail.split(/。|\n/).map(s => s.trim()).filter(Boolean) : []);
       return [k, {
+        id: v.id || k,
         title: v.title || '',
         type: v.type || '',
         desc: v.desc || '',
+        detail: v.detail || '',
+        cat: v.cat || '',
+        img: v.img || '',
+        tags: v.tags || [],
         points
       }];
     }));
+    // 載入完成後產生卡片並綁定互動
+    renderProjects();
+    updateProjectList();
+    bindDynamicProjectInteractions();
+    syncFavoriteButtons();
   })
   .catch(err => {
     console.error('載入 project-data.json 失敗：', err);
@@ -92,15 +102,18 @@ fetch('project-data.json')
 
 // 作品篩選與搜尋
 const filterBtns = document.querySelectorAll('.filter-btn[data-filter]');
-const projectItems = document.querySelectorAll('.project-item');
 const projectSearch = document.getElementById('projectSearch');
 const projectCount = document.getElementById('projectCount');
 let activeFilter = 'all';
 function updateProjectList() {
-  if (!projectItems.length) return;
+  const items = document.querySelectorAll('.project-item');
+  if (!items.length) {
+    if (projectCount) projectCount.textContent = '目前顯示 0 件作品';
+    return;
+  }
   const keyword = (projectSearch?.value || '').trim().toLowerCase();
   let visible = 0;
-  projectItems.forEach(item => {
+  items.forEach(item => {
     const categories = (item.dataset.category || '').split(' ');
     const text = (item.dataset.title || '').toLowerCase();
     const filterMatch = activeFilter === 'all' || categories.includes(activeFilter);
@@ -122,45 +135,89 @@ filterBtns.forEach(btn => {
 if (projectSearch) projectSearch.addEventListener('input', updateProjectList);
 updateProjectList();
 
-// 作品收藏
-const favoriteButtons = document.querySelectorAll('[data-favorite]');
+// 將 projectData 轉為 DOM 卡片並插入頁面
+function renderProjects() {
+  const listEl = document.querySelector('.project-list');
+  if (!listEl) return;
+  listEl.innerHTML = Object.entries(projectData).map(([id, p]) => {
+    const imgSrc = `images/${(p.img || '').replace(/\.svg$/i, '.jpg')}`;
+    const tagsHtml = (p.tags || []).map(t => `<span>${t}</span>`).join('');
+    const dataTitle = `${p.title} ${p.type} ${(p.tags || []).join(' ')}`.trim();
+    const category = (p.cat || '').trim();
+    return `
+      <div class="col-md-6 col-xl-4 project-item" data-category="${category}" data-title="${dataTitle}" data-project-id="${id}">
+        <article class="project-card h-100">
+          <button class="favorite-btn" type="button" data-favorite="${id}" aria-label="收藏 ${p.title}">☆</button>
+          <img src="${imgSrc}" alt="${p.title} 示意圖">
+          <div class="project-body">
+            <span class="project-type">${p.type}</span>
+            <h3>${p.title}</h3>
+            <p>${p.desc}</p>
+            <div class="mini-tags">${tagsHtml}</div>
+            <button class="text-btn mt-3" type="button" data-open-project="${id}">查看細節</button>
+          </div>
+        </article>
+      </div>
+    `;
+  }).join('');
+}
+
+// 綁定動態產生的收藏按鈕
+function bindFavoriteButtons() {
+  document.querySelectorAll('[data-favorite]').forEach(btn => {
+    if (btn.dataset.favBound) return;
+    btn.dataset.favBound = '1';
+    btn.addEventListener('click', () => {
+      const id = btn.dataset.favorite;
+      if (favorites.has(id)) favorites.delete(id); else favorites.add(id);
+      localStorage.setItem(favoriteKey, JSON.stringify([...favorites]));
+      syncFavoriteButtons();
+    });
+  });
+}
+
+// 綁定動態產生的「查看細節」按鈕
+function bindOpenProjectButtons() {
+  document.querySelectorAll('[data-open-project]').forEach(btn => {
+    if (btn.dataset.openBound) return;
+    btn.dataset.openBound = '1';
+    btn.addEventListener('click', () => {
+      const id = btn.dataset.openProject;
+      const data = projectData[id];
+      if (!data || !modalEl || !window.bootstrap) return;
+      modalTitle.textContent = data.title;
+      modalBody.innerHTML = `
+        <p class="project-type">${data.type}</p>
+        <p>${data.desc}</p>
+        <ul class="detail-list">${data.points.map(point => `<li>${point}</li>`).join('')}</ul>
+      `;
+      bootstrap.Modal.getOrCreateInstance(modalEl).show();
+    });
+  });
+}
+
+function bindDynamicProjectInteractions() {
+  bindFavoriteButtons();
+  bindOpenProjectButtons();
+}
+
+// 作品收藏（動態）
 const favoriteKey = 'portfolioFavorites';
 const favorites = new Set(JSON.parse(localStorage.getItem(favoriteKey) || '[]'));
+
 function syncFavoriteButtons() {
-  favoriteButtons.forEach(btn => {
+  document.querySelectorAll('[data-favorite]').forEach(btn => {
     const id = btn.dataset.favorite;
     const active = favorites.has(id);
     btn.classList.toggle('active', active);
     btn.textContent = active ? '★' : '☆';
   });
 }
-favoriteButtons.forEach(btn => {
-  btn.addEventListener('click', () => {
-    const id = btn.dataset.favorite;
-    if (favorites.has(id)) favorites.delete(id); else favorites.add(id);
-    localStorage.setItem(favoriteKey, JSON.stringify([...favorites]));
-    syncFavoriteButtons();
-  });
-});
-syncFavoriteButtons();
 
-// 作品細節 Modal
+// 作品細節 Modal（動態綁定於 render 後）
 const modalEl = document.getElementById('projectModal');
 const modalTitle = document.getElementById('projectModalTitle');
 const modalBody = document.getElementById('projectModalBody');
-document.querySelectorAll('[data-open-project]').forEach(btn => {
-  btn.addEventListener('click', () => {
-    const data = projectData[btn.dataset.openProject];
-    if (!data || !modalEl || !window.bootstrap) return;
-    modalTitle.textContent = data.title;
-    modalBody.innerHTML = `
-      <p class="project-type">${data.type}</p>
-      <p>${data.desc}</p>
-      <ul class="detail-list">${data.points.map(point => `<li>${point}</li>`).join('')}</ul>
-    `;
-    bootstrap.Modal.getOrCreateInstance(modalEl).show();
-  });
-});
 
 // 代表專題互動模組
 const labData = {
