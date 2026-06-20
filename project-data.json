@@ -4,7 +4,7 @@
     "title": "智慧物聯共享站",
     "type": "IoT / System / Web",
     "cat": "iot system web",
-    "img": "iot-station.svg",
+    "img": "iot-station.jpg",
     "tags": [
       "RFID",
       "人臉辨識",
@@ -19,7 +19,7 @@
     "title": "太空生存戰",
     "type": "Game",
     "cat": "game",
-    "img": "game-space.svg",
+    "img": "game-space.jpg",
     "tags": [
       "Game Logic",
       "Self Learning"
@@ -32,7 +32,7 @@
     "title": "個人網站",
     "type": "Web",
     "cat": "web",
-    "img": "website-mock.svg",
+    "img": "website-mock.jpg",
     "tags": [
       "HTML",
       "CSS",
@@ -46,7 +46,7 @@
     "title": "有效期限管理系統",
     "type": "System / Web",
     "cat": "system web",
-    "img": "system-flow.svg",
+    "img": "system-flow.jpg",
     "tags": [
       "Database",
       "PHP",
@@ -60,7 +60,7 @@
     "title": "活動投票系統",
     "type": "Web / PHP",
     "cat": "web system",
-    "img": "website-mock.svg",
+    "img": "website-mock.jpg",
     "tags": [
       "PHP",
       "AJAX",
@@ -74,7 +74,7 @@
     "title": "服飾購物網站",
     "type": "Web / UI",
     "cat": "web",
-    "img": "certificates.svg",
+    "img": "certificates.jpg",
     "tags": [
       "UI",
       "RWD",
@@ -88,7 +88,7 @@
     "title": "小家電維修平台企劃",
     "type": "System Planning",
     "cat": "system",
-    "img": "internship-repair.svg",
+    "img": "internship-repair.jpg",
     "tags": [
       "AI Flow",
       "Forum",

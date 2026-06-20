@@ -68,7 +68,7 @@ if ('IntersectionObserver' in window) {
   statEls.forEach(el => countObserver.observe(el));
 }
 
-// 作品資料（從 project-data.json 載入）
+// 作品資料
 let projectData = {};
 fetch('project-data.json')
   .then(response => {
@@ -140,7 +140,23 @@ function renderProjects() {
   const listEl = document.querySelector('.project-list');
   if (!listEl) return;
   listEl.innerHTML = Object.entries(projectData).map(([id, p]) => {
-    const imgSrc = `images/${(p.img || '').replace(/\.svg$/i, '.jpg')}`;
+    const imgName = p.img || '';
+    const candidates = [];
+    if (!imgName) {
+      candidates.push('images/profile.jpg');
+    } else {
+      if (/\.[a-zA-Z0-9]+$/.test(imgName)) {
+        candidates.push(`images/${imgName}`);
+        const ext = imgName.split('.').pop().toLowerCase();
+        if (ext === 'svg') candidates.push(`images/${imgName.replace(/\.svg$/i, '.jpg')}`);
+        if (ext === 'jpg' || ext === 'jpeg') candidates.push(`images/${imgName.replace(/\.[^.]+$/i, '.svg')}`);
+      } else {
+        candidates.push(`images/${imgName}`, `images/${imgName}.jpg`, `images/${imgName}.svg`);
+      }
+      candidates.push('images/profile.jpg');
+    }
+    const imgSrc = candidates[0];
+    const candidatesAttr = candidates.join('|');
     const tagsHtml = (p.tags || []).map(t => `<span>${t}</span>`).join('');
     const dataTitle = `${p.title} ${p.type} ${(p.tags || []).join(' ')}`.trim();
     const category = (p.cat || '').trim();
@@ -148,7 +164,7 @@ function renderProjects() {
       <div class="col-md-6 col-xl-4 project-item" data-category="${category}" data-title="${dataTitle}" data-project-id="${id}">
         <article class="project-card h-100">
           <button class="favorite-btn" type="button" data-favorite="${id}" aria-label="收藏 ${p.title}">☆</button>
-          <img src="${imgSrc}" alt="${p.title} 示意圖">
+          <img src="${imgSrc}" data-img-candidates="${candidatesAttr}" onerror="tryNextSrc(this)" alt="${p.title} 示意圖">
           <div class="project-body">
             <span class="project-type">${p.type}</span>
             <h3>${p.title}</h3>
@@ -160,6 +176,19 @@ function renderProjects() {
       </div>
     `;
   }).join('');
+}
+
+// 嘗試下一個候選圖片（綁到 <img onerror="tryNextSrc(this)")
+function tryNextSrc(img) {
+  const list = (img.dataset.imgCandidates || '').split('|').filter(Boolean);
+  let idx = Number(img.dataset.imgIndex || 0);
+  if (idx >= list.length - 1) {
+    img.onerror = null;
+    return;
+  }
+  idx++;
+  img.dataset.imgIndex = idx;
+  img.src = list[idx];
 }
 
 // 綁定動態產生的收藏按鈕
